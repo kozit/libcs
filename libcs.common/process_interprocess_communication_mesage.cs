@@ -11,8 +11,8 @@ namespace libcs.common
 
         [MarshalAs(UnmanagedType.LPStr)]
         public string message_group;
-
-        [MarshalAs(UnmanagedType.LPStr)]
-        public string payload;
+        
+        [MarshalAs(UnmanagedType.SafeArray)]        
+        public byte[] payload;
     }
 }

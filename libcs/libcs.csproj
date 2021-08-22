@@ -2,8 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoStdLib>true</NoStdLib>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <LangVersion>preview</LangVersion>
+    <IsCoreAssembly>true</IsCoreAssembly>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\libcs.common\libcs.common.csproj"/>
+
+    <ProjectReference Include="..\System.Private.CoreLib\System.Private.CoreLib.csproj"/>
   </ItemGroup>
 </Project>

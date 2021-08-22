@@ -17,12 +17,65 @@ namespace libcs.SourceGenerator
     public class SyscallHandler : ISourceGenerator
     {
         public class syscallData {
-            public byte[] syscall;
+            public uint[] syscall;
+            public IRQField EDI;
+            public IRQField ESI;
+            public IRQField EBP;
+            public IRQField ESP;
+            public IRQField EBX;
+            public IRQField EDX;
+            public IRQField ECX;
             public MethodDeclarationSyntax component;
         }
         public void Initialize(GeneratorInitializationContext context)
         {
 
+        }
+
+        public string Call(syscallData item) {
+            var Args = new List<string>();
+            var rand = new Random();
+
+            var Output = new StringBuilder();
+            if(item.EDI is not null) {
+                var EDIArgname = Utils.RandomString();
+                Args.Append(EDIArgname);
+                Output.Append($@"var {EDIArgname} = ({item.EDI.FieldType}*) aContext.EDI");
+            }
+            if(item.ESI is not null) {
+                var ESIArgname = Utils.RandomString();
+                Args.Append(ESIArgname);
+                Output.Append($@"var {ESIArgname} = ({item.ESI.FieldType}*) aContext.ESI");
+            }
+            if(item.EBP is not null) {
+                var EBPArgname = Utils.RandomString();
+                Args.Append(EBPArgname);
+                Output.Append($@"var {EBPArgname} = ({item.EBP.FieldType}*) aContext.EBP");                
+            }
+            if(item.ESP is not null) {
+                var ESPArgname = Utils.RandomString();
+                Args.Append(ESPArgname);
+                Output.Append($@"var {ESPArgname} = ({item.ESP.FieldType}*) aContext.ESP");                
+            }
+            if(item.EBX is not null) {
+                var EBXArgname = Utils.RandomString();
+                Args.Append(EBXArgname);
+                Output.Append($@"var {EBXArgname} = ({item.EBX.FieldType}*) aContext.EBX");                
+            }
+            if(item.EDX is not null) {
+                var EDXArgname = Utils.RandomString();
+                Args.Append(EDXArgname);
+                Output.Append($@"var {EDXArgname} = ({item.EDX.FieldType}*) aContext.EDX");                
+            }
+            if(item.ECX is not null) {
+                var ECXArgname = Utils.RandomString();
+                Args.Append(ECXArgname);
+                Output.Append($@"var {ECXArgname} = ({item.ECX.FieldType}*) aContext.ECX");                
+            }
+            
+            Output.Append(@$"{item.component.Identifier.Text}({Args.Join(',')});");
+
+            return Output.ToString();
         }
 
         public void Execute(GeneratorExecutionContext context)
@@ -47,19 +100,14 @@ namespace libcs.SourceGenerator
                         {
             ");
 
-                foreach (var item in GetSyscalls(context.Compilation))
+                foreach (syscallData item in GetSyscalls(context.Compilation))
                 {
                     foreach (var syscall in item.syscall)
                     {
                         sb.Append($"case {syscall}:");
                         
                     }
-                    sb.Append($@"
-                    Console.WriteLine({item.component.GetLocation()});
-                    Console.WriteLine({item.component.GetLocation().SourceTree});
-                    Console.WriteLine({item.component.GetReference()});
-                    
-                    ");
+                    sb.Append($@"{Call(item)}");
                     sb.Append("break;");
                 }
 
@@ -103,14 +151,25 @@ namespace libcs.SourceGenerator
                 .SelectMany(x => x.Attributes)
                 .Where(attr => attr.GetType() == typeof(SyscallAttribute))
                 .Cast<SyscallAttribute>()
-                .Select(x => x.SysCall)
+                .Select(x => {
+                    return new syscallData() {
+                        syscall = x.SysCall,
+                        component = component,
+                        EDI = x.EDI,
+                        ESI = x.ESI,
+                        EBP = x.EBP,
+                        ESP = x.ESP,
+                        EBX = x.EBX,
+                        EDX = x.EDX,
+                        ECX = x.ECX
+                    };
+
+                })
                 .ToArray();
             if(attributes.Length == 0)
                 return null;
-            return new syscallData() {
-                syscall = attributes,
-                component = component
-            };
+
+            return attributes[0];
 
         }
 
