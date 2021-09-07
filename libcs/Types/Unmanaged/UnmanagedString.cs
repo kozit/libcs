@@ -1,11 +1,13 @@
+using libcs.IO.Streams;
 namespace libcs.Types.Unmanaged
 {
-    public class UnmanagedString {
+    public unsafe class UnmanagedString {
         
-        private byte[] data;
+        private UnmanagedMemoryStream Stream;
+        private long Length;
         
-        public UnmanagedString() {
-
+        public UnmanagedString(long Length) {
+            Stream = new UnmanagedMemoryStream(Length);
         }
 
         public override string ToString() {
@@ -14,10 +16,10 @@ namespace libcs.Types.Unmanaged
 
         public byte[] ToCString()
         {
-            return data;
+            return RealToCString(data);
         }
 
-        private byte[] TrueToCString(string s)
+        private byte[] RealToCString(string s)
         {
             var re = new byte[s.Length + 1];
 
@@ -26,7 +28,7 @@ namespace libcs.Types.Unmanaged
                 re[i] = (byte)s[i];
             }
 
-            re[s.Length + 1] = 0; //c requires null terminated string
+            re[s.Length + 1] = 0x00; //c requires null terminated string
             return re;
         }
     }

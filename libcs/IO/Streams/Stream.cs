@@ -35,7 +35,19 @@ namespace libcs.IO.Streams
         public abstract void Write(byte dat);
         public abstract void Write(byte[] dat);
 
-        public abstract void Seek(long offset, SeekOrigin origin = SeekOrigin.Current);
+        public virtual void Seek(long offset, SeekOrigin origin = SeekOrigin.Current) {
+            switch (origin)
+            {
+                case SeekOrigin.End:
+                    Position = Length;
+                    break;
+                case SeekOrigin.Begin:
+                    Position = 0;
+                    break;
+                
+            }
+            Position += offset;
+        }
 
         public abstract void Dispose();
 

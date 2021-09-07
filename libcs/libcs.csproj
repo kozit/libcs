@@ -14,8 +14,8 @@
     <IsCoreAssembly>true</IsCoreAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libcs.common\libcs.common.csproj"/>
+    <ProjectReference Include="..\libcs.common\libcs.common.csproj" />
 
-    <ProjectReference Include="..\System.Private.CoreLib\System.Private.CoreLib.csproj"/>
+    <ProjectReference Include="..\System.Private.CoreLib\System.Private.CoreLib.csproj" />
   </ItemGroup>
 </Project>
