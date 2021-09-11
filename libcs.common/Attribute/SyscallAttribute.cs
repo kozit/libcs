@@ -21,7 +21,7 @@ namespace libcs.common.Attribute
         public IRQField EDX {get; private set;} = null;
         public IRQField ECX {get; private set;} = null;
         public SyscallAttribute(
-            uint SysCall
+            uint[] SysCall
             )
         {
 

@@ -10,6 +10,7 @@ namespace libcs
 
         internal static void Init(App app) {
             Items = new List<KeyValuePair<string, string>>(app.environment);
+            
         }
 
         public static string Get(string Key) {
