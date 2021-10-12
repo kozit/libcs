@@ -8,7 +8,7 @@ namespace libcs
         
         internal static List<KeyValuePair<string, string>> Items = new List<KeyValuePair<string, string>>();
 
-        internal static void Init(App app) {
+        public static void Init(App app) {
             Items = new List<KeyValuePair<string, string>>(app.environment);
             
         }

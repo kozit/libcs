@@ -73,7 +73,7 @@ namespace libcs.SourceGenerator
                 Output.Append($@"var {ECXArgname} = ({item.ECX.FieldType}*) aContext.ECX");                
             }
             
-            Output.Append(@$"{item.component.Identifier.Text}({Args.Join(',')});");
+            Output.Append(@$"{item.component.Identifier.Text}({string.Join(',', Args)});");
 
             return Output.ToString();
         }

@@ -13,25 +13,27 @@ namespace libcs.IO.Streams
 
     public abstract class Stream : IDisposable
     {
-        public abstract bool CanRead { get; }
-        public abstract bool CanWrite { get; }
-        public abstract bool CanSeek { get; }
+        public virtual bool CanRead { get; } = true;
+        public virtual bool CanWrite { get; } = true;
+        public virtual bool CanSeek { get; } = true;
         public virtual bool CanTimeout => false;
 
-        public abstract long Length { get; }
-        public abstract long Position { get; set; }
+        public long Length { get; }
+        public long Position { get; protected set; }
 
         public virtual long GetPosition() {
             return Position;
         }
 
-        public abstract int Read(byte[] buffer, int offset, int count);
-        public virtual int ReadByte()
+        public abstract void Read(ref byte[] buffer);
+        
+        public virtual byte ReadByte()
         {
             var oneByteArray = new byte[1];
-            int r = Read(oneByteArray, 0, 1);
-            return r == 0 ? -1 : oneByteArray[0];
-        }        
+            Read(ref oneByteArray);
+            return oneByteArray[0];
+        }
+
         public abstract void Write(byte dat);
         public abstract void Write(byte[] dat);
 
@@ -50,7 +52,15 @@ namespace libcs.IO.Streams
         }
 
         public abstract void Dispose();
+        public static implicit operator byte[](Stream d){
+            var current = d.Position;
 
+            d.Seek(0, SeekOrigin.Begin);
+            var Output = new byte[d.Length];
+            d.Read(ref Output);
+            d.Seek(current, SeekOrigin.Begin);
+            return Output;
+        }
     }
 
 }

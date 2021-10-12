@@ -3,18 +3,19 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
-    <NoStdLib>true</NoStdLib>
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    
+    <NoStdLib>false</NoStdLib>
+    <DisableImplicitFrameworkReferences>false</DisableImplicitFrameworkReferences>
     <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
-    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
-    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <AddAdditionalExplicitAssemblyReferences>true</AddAdditionalExplicitAssemblyReferences>
+    <GenerateTargetFrameworkAttribute>true</GenerateTargetFrameworkAttribute>
     <LangVersion>preview</LangVersion>
     <IsCoreAssembly>true</IsCoreAssembly>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\libcs.common\libcs.common.csproj" />
-
-    <ProjectReference Include="..\System.Private.CoreLib\System.Private.CoreLib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Cosmos.System2" version="0-*" Version="0-*" />
   </ItemGroup>
 </Project>

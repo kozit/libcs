@@ -7,11 +7,7 @@ namespace libcs.common
         system_time     = 0x03,
 
         process_signal  = 0x50,
-        process_interprocess_communication_send  = 0x51,
-        process_interprocess_communication_clear = 0x52,
-        process_interprocess_communication_count = 0x53,
-        process_interprocess_communication_retrieve = 0x54,
-        process_interprocess_communication_retrieve_acknowledgement = 0x55,
+        process_interprocess_communication  = 0x51,
     }
 
 }

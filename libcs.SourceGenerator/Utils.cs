@@ -7,12 +7,17 @@ using System.Text;
 namespace libcs.SourceGenerator
 {
 
-    public class Utils {
+    public static class Utils {
 
-        public static string RandomString(int length)
+
+        public static string RandomString(int length = 16)
         {
             Random i = new Random();
-            return Encoding.Unicode.GetString(System.Linq.Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", length).Select(s => s[i.Next(s.Length)]).ToArray().ToUnicode());
+            return Encoding.Unicode.GetString(
+                    Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", length)
+                    .Select(s => (byte)s[i.Next(s.Length)])
+                    .ToArray()
+                );
         }
 
     }
