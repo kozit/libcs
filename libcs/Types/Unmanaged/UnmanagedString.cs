@@ -7,8 +7,8 @@ using libcs.IO.Streams;
 
 namespace libcs.Types.Unmanaged
 {
-    [Serializable]
-    public unsafe class UnmanagedString : ISerializable
+
+    public class UnmanagedString
     {
         
         private MemoryStream Stream;
@@ -24,6 +24,11 @@ namespace libcs.Types.Unmanaged
         public UnmanagedString(byte[] data) {
             Stream = new MemoryStream(data);            
         }
+
+        public UnmanagedString(ref byte[] data) {
+            Stream = new MemoryStream(ref data);            
+        }
+
         public UnmanagedString(MemoryStream data) {
             Stream = data;            
         }
@@ -59,16 +64,7 @@ namespace libcs.Types.Unmanaged
         public static implicit operator byte[](UnmanagedString d) => d.Stream.data;
         public static explicit operator UnmanagedString(byte[] d) => new UnmanagedString(d);
         public static explicit operator UnmanagedString(MemoryStream d) => new UnmanagedString(d);
-        
 
-        protected UnmanagedString(SerializationInfo info, StreamingContext context)
-        {
-            Stream = new MemoryStream((byte[])info.GetValue("data", typeof(byte[])));
-        }
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("data", (byte[])this, typeof(byte[]));
-        }
 
     }
 }

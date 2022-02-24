@@ -12,6 +12,12 @@ namespace libcs.IO.Streams
             Seek(0 , SeekOrigin.Begin);
         }
 
+        public MemoryStream(ref byte[] Data)
+        {
+            data = Data;
+            Seek(0 , SeekOrigin.Begin);
+        }
+
         public MemoryStream(long Length)
         {
             data = new byte[Length];

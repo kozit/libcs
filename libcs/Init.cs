@@ -1,8 +1,9 @@
 namespace libcs {
 
-    internal static class Core {
+    public static class Core {
         internal static App app;
-        internal static void Init(App app) {
+        // this will be the first thing called
+        public static void Init(App app) {
             Core.app = app;
             
         }

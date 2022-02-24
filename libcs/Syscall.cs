@@ -91,7 +91,7 @@ namespace libcs
                 );
         }
 
-            public static IntPtr Call<T0, T1, T2, T3>(
+        public static IntPtr Call<T0, T1, T2, T3>(
             uint Syscall_code,
             ref T0 EDI,
             ref T1 ESI,
@@ -116,7 +116,7 @@ namespace libcs
                     ref data
                 );
         }
-            public static IntPtr Call<T0, T1, T2, T3, T4>(
+        public static IntPtr Call<T0, T1, T2, T3, T4>(
             uint Syscall_code,
             ref T0 EDI,
             ref T1 ESI,

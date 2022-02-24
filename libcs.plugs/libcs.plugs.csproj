@@ -3,5 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
+  <ItemGroup>
+      <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
+      <PackageReference Include="Cosmos.IL2CPU" />
+      <PackageReference Include="Cosmos.Core" />
+      <PackageReference Include="XSharp" />
+  </ItemGroup>
 </Project>
